@@ -28,25 +28,22 @@ app.set('views', __dirname + '/views');
 // pages as well.
 app.get("/", function(req, res)
 {
-  res.render("home",
-             {homenav: true});
+  res.render("home", {homenav: true});
 });
 
 // render the contact page
 app.get("/transactions", async function(req, res)
 {
-  res.render("home",
-    {homenav: true});
-  // retrieve all the transactions 
-  //const categoryArray = await Model.getAllCategories();
-  //res.render("transactions", {transactionnav: true, transaction: true, transactions: categoryArray});
+  res.render("transaction", {transactionnav: true});
 });
 
 // render the contact page
 app.get("/history", function(req, res)
 {
-  res.render("history",
-             {historynav: true});
+  res.render("history", {historynav: true});
+  // retrieve all the transactions 
+  //const categoryArray = await Model.getAllCategories();
+  //res.render("transactions", {transactionnav: true, transaction: true, transactions: categoryArray});
 });
 
 // render the contact page
@@ -60,7 +57,7 @@ app.get("/categories", async function(req, res)
 // ************************* CONTROLLER ACTIONS ****************************
 
 // delete a category action (given an id parameter)
-app.get('/delete/:id', async function(req,res) 
+app.get('/categories/delete/:id', async function(req,res) 
 {
   // delete the category with id
   await Model.deleteCategory(req.params.id);
@@ -73,7 +70,7 @@ app.get('/delete/:id', async function(req,res)
 });
 
 // addcategoryform action puts the add category form on the page
-app.get('/addcategoryform', async function(req,res)
+app.get('/categories/addcategoryform', async function(req,res)
 {
   // retrieve all the categories 
   const categoryArray = await Model.getAllCategories();
@@ -84,7 +81,7 @@ app.get('/addcategoryform', async function(req,res)
 });
 
 // addcategory action handles add form submit, inserts new category into table
-app.get('/addcategory', async function(req,res) 
+app.get('/categories/addcategory', async function(req,res) 
 {
   // Insert category into table using form data
   await Model.addCategory(req.query);
@@ -97,7 +94,7 @@ app.get('/addcategory', async function(req,res)
 });
 
 // updateform action puts the update category form on the page
-app.get('/updateform/:id', async function(req,res) 
+app.get('/categories/updateform/:id', async function(req,res) 
 {
   // retrieve all the categories 
   const categoryArray = await Model.getAllCategories();
@@ -113,7 +110,7 @@ app.get('/updateform/:id', async function(req,res)
 });
 
 // updatecategory action handles updating the category in the database
-app.get('/updatecategory/:id', async function(req,res)
+app.get('/categories/updatecategory/:id', async function(req,res)
 {
   // update the category in the database
   await Model.updateCategory(req.query, req.params.id);

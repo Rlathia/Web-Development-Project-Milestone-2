@@ -1,0 +1,30 @@
+{{>header}}
+
+{{>navigation}}
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+        <h2>Add Income/Expense Transaction</h2>
+        <div class="topnav">
+            <a href="/transaction/addincomeform" {{#incomenav}}class="curnav"{{/incomenav}}>Income</a>
+            <a href="/transaction/addexpenseform" {{#expensenav}}class="curnav"{{/expensenav}}>Expense</a>
+        </div>
+      {{#addcategory}}
+        <form name="AddCategoryForm" id="AddCategoryForm" class="categoryform" action="/categories/addcategory">
+          <label for="name">Category Name</label>
+          <input type="text" name="name"> <br />
+          <input type="submit">
+        </form>
+      {{/addcategory}}
+      {{#updatecategory}}
+        <form name="EditCategoryForm" id="EditCategoryForm" class="categoryform" action="/categories/updatecategory/{{updateid}}">
+          <label for="name">Category Name</label>
+          <input type="text" value="{{formdata.name}}" name="name"> <br />
+          <input type="submit">
+        </form>
+      {{/updatecategory}}  
+      </div>
+  </div>
+
+</div>

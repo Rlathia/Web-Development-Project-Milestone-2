@@ -7,6 +7,28 @@
     <div class="card">
       <h2>History</h2>
       <p>Report of transactions added to this web application</p>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Price</th>
+          <th>Payment mode</th>
+          <th></th>
+          <th></th>
+        </tr>
+        {{#transactions}}
+        <tr>
+          <th>{{Type}}</th>
+          <th>{{Category}}</th>
+          <th>{{Date}}</th>
+          <th>{{Price}}</th>
+          <th>{{PaymentMode}}</th>
+          <td><a class="fas fa-edit" href="/updatetransactionform/{{rowid}}"></a></td>
+          <td><a class="fas fa-edit" href="/updatetransactionform/{{rowid}}"></a></td>
+          <td><a class="fas fa-trash-alt" href="/deletetransaction/{{rowid}}"></a></td>
+        </tr>
+        {{/transactions}}
     </div>
   </div>
 
