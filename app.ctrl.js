@@ -21,6 +21,42 @@ app.set('view engine', 'mustache');
 // files should have the extension filename.mustache
 app.set('views', __dirname + '/views');
 
+// render the home page
+// - notice how we set the template boolean homenav to true... this tells
+// the navigation template that we want the home navigation item to be
+// highlighted when the home page is selected.  We do the same for the other
+// pages as well.
+app.get("/", function(req, res)
+{
+  res.render("home",
+             {homenav: true});
+});
+
+// render the contact page
+app.get("/transactions", async function(req, res)
+{
+  res.render("home",
+    {homenav: true});
+  // retrieve all the transactions 
+  //const categoryArray = await Model.getAllCategories();
+  //res.render("transactions", {transactionnav: true, transaction: true, transactions: categoryArray});
+});
+
+// render the contact page
+app.get("/history", function(req, res)
+{
+  res.render("history",
+             {historynav: true});
+});
+
+// render the contact page
+app.get("/categories", async function(req, res)
+{
+  // retrieve all the categories 
+  const categoryArray = await Model.getAllCategories();
+  res.render("categories", {categorynav: true, categories: true, categories: categoryArray});
+});
+
 // ************************* CONTROLLER ACTIONS ****************************
 
 // delete a category action (given an id parameter)
@@ -33,7 +69,7 @@ app.get('/delete/:id', async function(req,res)
   const categoryArray = await Model.getAllCategories();
 
   // render the page
-  res.render('main_page', { categories: categoryArray});
+  res.render('categories', { categories: categoryArray});
 });
 
 // addcategoryform action puts the add category form on the page
@@ -43,7 +79,7 @@ app.get('/addcategoryform', async function(req,res)
   const categoryArray = await Model.getAllCategories();
 
   // render the page with the category data AND display the add form
-  res.render('main_page', {addcategory: true, categories: categoryArray});
+  res.render('categories', {addcategory: true, categories: categoryArray});
 
 });
 
@@ -57,7 +93,7 @@ app.get('/addcategory', async function(req,res)
   const categoryArray = await Model.getAllCategories();
 
   // render the page
-  res.render('main_page', {categories: categoryArray});
+  res.render('categories', {categories: categoryArray});
 });
 
 // updateform action puts the update category form on the page
@@ -68,7 +104,7 @@ app.get('/updateform/:id', async function(req,res)
 
   // render the page with update form populated with the data for the 
   // category with the relevant id
-  res.render('main_page',
+  res.render('categories',
     {updatecategory: true
     ,updateid: req.params.id
     ,formdata : categoryArray.filter(x => (x.rowid == req.params.id))[0]
@@ -86,18 +122,9 @@ app.get('/updatecategory/:id', async function(req,res)
   const categoryArray = await Model.getAllCategories();
 
   // render the page
-  res.render('main_page', { categories: categoryArray});
+  res.render('categories', { categories: categoryArray});
 });
 
-// default action: render the page with category data
-app.get('/', async function(req,res) 
-{
-  // retrieve all the categories 
-  const categoryArray = await Model.getAllCategories();
-
-  // render the page
-  res.render('main_page', { categories: categoryArray});
-});
 
 // catch-all router case intended for static files
 app.get(/^(.+)$/, function(req,res) {

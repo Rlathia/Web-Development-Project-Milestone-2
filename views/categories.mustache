@@ -1,0 +1,40 @@
+{{>header}}
+
+{{>navigation}}
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+      <h2>Category of Income/Expense</h2>
+      <table>
+        <tr>
+          <th>Category Name</th>
+          <th></th>
+          <th></th>
+        </tr>
+        {{#categories}}
+        <tr>
+          <td>{{name}}</td>
+          <td><a class="fas fa-edit" href="/updateform/{{rowid}}"></a></td>
+          <td><a class="fas fa-trash-alt" href="/delete/{{rowid}}"></a></td>
+        </tr>
+        {{/categories}}
+      </table>
+      <p><a href="/addcategoryform">Add Category</a>
+      {{#addcategory}}
+        <form action="/addcategory">
+          <label for="name">Category Name</label>
+          <input type="text" name="name"> <br />
+          <input type="submit">
+        </form>
+      {{/addcategory}}
+      {{#updatecategory}}
+        <form action="/updatecategory/{{updateid}}">
+          <label for="name">First Name</label>
+          <input type="text" value="{{formdata.name}}" name="name"> <br />
+          <input type="submit">
+        </form>
+      {{/updatecategory}}  
+      </div>
+  </div>
+
+</div>
