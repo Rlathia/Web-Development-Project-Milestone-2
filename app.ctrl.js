@@ -32,7 +32,7 @@ app.get("/", function(req, res)
 });
 
 // render the contact page
-app.get("/transactions", async function(req, res)
+app.get("/transaction", async function(req, res)
 {
   res.render("transaction", {transactionnav: true});
 });
