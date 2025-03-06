@@ -14,21 +14,21 @@
         {{#categories}}
         <tr>
           <td>{{name}}</td>
-          <td><a class="fas fa-edit" href="/updateform/{{rowid}}"></a></td>
-          <td><a class="fas fa-trash-alt" href="/delete/{{rowid}}"></a></td>
+          <td><a class="fas fa-edit" href="/categories/updateform/{{rowid}}"></a></td>
+          <td><a class="fas fa-trash-alt" href="/categories/delete/{{rowid}}"></a></td>
         </tr>
         {{/categories}}
       </table>
-      <p><a href="/addcategoryform">Add Category</a>
+      <p><a href="categories/addcategoryform">Add Category</a>
       {{#addcategory}}
-        <form action="/addcategory">
+        <form name="AddCategoryForm" id="AddCategoryForm" class="categoryform" action="/categories/addcategory">
           <label for="name">Category Name</label>
           <input type="text" name="name"> <br />
           <input type="submit">
         </form>
       {{/addcategory}}
       {{#updatecategory}}
-        <form action="/updatecategory/{{updateid}}">
+        <form name="EditCategoryForm" id="EditCategoryForm" class="categoryform" action="/categories/updatecategory/{{updateid}}">
           <label for="name">Category Name</label>
           <input type="text" value="{{formdata.name}}" name="name"> <br />
           <input type="submit">
