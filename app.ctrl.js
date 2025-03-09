@@ -37,6 +37,7 @@ app.get("/transaction", async function(req, res)
   res.render("transaction", {transactionnav: true});
 });
 
+
 // render the contact page
 app.get("/history", function(req, res)
 {
@@ -66,18 +67,17 @@ app.get('/categories/delete/:id', async function(req,res)
   const categoryArray = await Model.getAllCategories();
 
   // render the page
-  res.render('categories', { categories: categoryArray});
+  res.render('categories', { categorynav: true, categories: categoryArray});
 });
 
 // addcategoryform action puts the add category form on the page
-app.get('/categories/addcategoryform', async function(req,res)
+app.get('/addcategoryform', async function(req,res)
 {
   // retrieve all the categories 
   const categoryArray = await Model.getAllCategories();
 
   // render the page with the category data AND display the add form
-  res.render('categories', {addcategory: true, categories: categoryArray});
-
+  res.render('categories', {categorynav: true, addcategory: true, categories: categoryArray});
 });
 
 // addcategory action handles add form submit, inserts new category into table
@@ -90,7 +90,7 @@ app.get('/categories/addcategory', async function(req,res)
   const categoryArray = await Model.getAllCategories();
 
   // render the page
-  res.render('categories', {categories: categoryArray});
+  res.render('categories', {categorynav: true, categories: categoryArray});
 });
 
 // updateform action puts the update category form on the page
@@ -102,7 +102,7 @@ app.get('/categories/updateform/:id', async function(req,res)
   // render the page with update form populated with the data for the 
   // category with the relevant id
   res.render('categories',
-    {updatecategory: true
+    {categorynav: true, updatecategory: true
     ,updateid: req.params.id
     ,formdata : categoryArray.filter(x => (x.rowid == req.params.id))[0]
     ,categories: categoryArray
@@ -119,7 +119,7 @@ app.get('/categories/updatecategory/:id', async function(req,res)
   const categoryArray = await Model.getAllCategories();
 
   // render the page
-  res.render('categories', { categories: categoryArray});
+  res.render('categories', { categorynav: true, categories: categoryArray});
 });
 
 
