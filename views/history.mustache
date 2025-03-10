@@ -6,29 +6,84 @@
   <div class="leftcolumn">
     <div class="card">
       <h2>History</h2>
-      <p>Report of transactions added to this web application</p>
-      <table>
+      <div class="container container-fluid" id="search">
+      <h4>Search using anyone of the below criteria:</h4>
+      <form class="row-g-3">
+        <div class="input-group mb-3">
+          <button id="All_btn" type="button" class="btn btn-outline-secondary" value="">All</button>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Please select month :</span>
+          <select name="month" id="month_select" class="form-select" aria-label=".form-select-sm">
+            <option value="01">1</option>
+            <option value="02">2</option>
+            <option value="03">3</option>
+            <option value="04">4</option>
+            <option value="05">5</option>
+            <option value="06">6</option>
+            <option value="07">7</option>
+            <option value="08">8</option>
+            <option value="09">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          <div class="col-sm-8">
+            <button id="month_btn" type="button" class="btn btn-outline-secondary" value="">Filter By Month</button>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="input_date">Please select date :</label>
+          <input class="form-control" id="input_date" type="date"></input>
+          <div class="col-sm-8">
+            <button id="date_btn" type="button" class="btn btn-outline-secondary" value="">Filter By date</button>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="category_select">Please select category :</label>
+          <select name="category" id="category_select" class="form-select" aria-label=".form-select-sm">
+          {{#categories}}
+            <option value="{{rowid}}">{{name}}</option>
+          {{/categories}}
+          </select>
+          <div class="col-sm-8">
+            <button id="category_btn" type="button" class="btn btn-outline-secondary" value="">Filter By Category</button>
+          </div>
+        </div>
+        <br>
+    </form>
+    <table id="transactionTable" border="1" class = "table table-striped ">
+      <thead>
         <tr>
           <th>Type</th>
           <th>Category</th>
           <th>Date</th>
           <th>Price</th>
           <th>Payment mode</th>
-          <th></th>
-          <th></th>
+          <th>Description</th>
         </tr>
-        {{#transactions}}
+      </thead>
+      <tbody>
+          <!-- Data will be populated here by AJAX -->
+        {{#transaction}}
         <tr>
-          <th>{{Type}}</th>
-          <th>{{Category}}</th>
-          <th>{{Date}}</th>
-          <th>{{Price}}</th>
-          <th>{{PaymentMode}}</th>
-          <td><a class="fas fa-edit" href="/updatetransactionform/{{rowid}}"></a></td>
-          <td><a class="fas fa-edit" href="/updatetransactionform/{{rowid}}"></a></td>
-          <td><a class="fas fa-trash-alt" href="/deletetransaction/{{rowid}}"></a></td>
+          <td>{{transactionType}}</td>
+          <td>{{categoryName}}</td>
+          <td>{{date}}</td>
+          <td>{{amount}}</td>
+          <td>{{payment_mode}}</td>
+          <td>{{description}}</td>
         </tr>
-        {{/transactions}}
+        {{/transaction}}
+      </tbody>
+  </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        ClearFilter();
+      });
+
     </div>
   </div>
 

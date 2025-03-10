@@ -1,6 +1,8 @@
 // include express
 const express = require('express');
 const app = express();
+// To parse JSON request body
+app.use(express.json());
 
 // include the mustache template engine for express
 const mustacheExpress = require('mustache-express');
@@ -31,23 +33,37 @@ app.get("/", function(req, res)
   res.render("home", {homenav: true});
 });
 
-// render the contact page
+// render the transaction main page
 app.get("/transaction", async function(req, res)
 {
-  res.render("transaction", {transactionnav: true});
+  const categorylist = await Model.getAllCategories();
+  res.render("transaction", {transactionnav: true, incomenav: true, addtransaction: 1, categories: true, categories: categorylist});
 });
 
-
-// render the contact page
-app.get("/history", function(req, res)
+// render the addincomeform page
+app.get("/addincomeform", async function(req, res)
 {
-  res.render("history", {historynav: true});
-  // retrieve all the transactions 
-  //const categoryArray = await Model.getAllCategories();
-  //res.render("transactions", {transactionnav: true, transaction: true, transactions: categoryArray});
+  const categorylist = await Model.getAllCategories();
+  res.render("transaction", {transactionnav: true, incomenav: true, addtransaction: 1, categories: true, categories: categorylist});
 });
 
-// render the contact page
+// render the addexpenseform page
+app.get("/addexpenseform", async function(req, res)
+{
+  const categorylist = await Model.getAllCategories();
+  res.render("transaction", {transactionnav: true, expensenav: true, addtransaction: 2, categories: true, categories: categorylist});
+});
+
+// render the history page
+app.get("/history", async function(req, res)
+{
+  const categorylist = await Model.getAllCategories();
+  // retrieve all the transactions 
+  const transactionArray = await Model.getAllTransaction();
+  res.render("history", {historynav: true, transaction: true, transaction: transactionArray, categories: true, categories: categorylist});
+});
+
+// render the categories page
 app.get("/categories", async function(req, res)
 {
   // retrieve all the categories 
@@ -122,6 +138,22 @@ app.get('/categories/updatecategory/:id', async function(req,res)
   res.render('categories', { categorynav: true, categories: categoryArray});
 });
 
+// POST
+app.post("/addtransaction", async function(req,res)
+{
+    console.log("POST ITEM REQUEST RECEIVED");
+    console.log(req.body);
+
+    //insert transaction in the database
+    await Model.addTransaction(req.query);
+
+    //const { category, amount, date, payment_mode, transactionType, description } = req.body;
+    //db.run("INSERT INTO Income_Expense (categoryName, amount, date, payment_mode, transactionType, description) VALUES (?, ?, ?, ?, ?, ?)", [category, amount, date, payment_mode, transactionType, description ]);
+    res.json({response: req.body});
+
+    const categorylist = await Model.getAllCategories();
+    res.render("transaction", {transactionnav: true, incomenav: true, addtransaction: 1, categories: true, categories: categorylist});
+});
 
 // catch-all router case intended for static files
 app.get(/^(.+)$/, function(req,res) {

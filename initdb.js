@@ -9,7 +9,7 @@ db.serialize(function() {
   // create Category table
   db.run("DROP TABLE IF EXISTS Category");
   //db.run("CREATE TABLE Category (id INTEGER PRIMARY KEY, name TEXT)");
-  db.run("CREATE TABLE Category (name TEXT PRIMARY KEY)");
+  db.run("CREATE TABLE Category (name TEXT)");
 
   // insert records into the Category table
   //db.run("INSERT INTO Category VALUES (?)", [1, 'Groceries']);
@@ -37,11 +37,4 @@ db.serialize(function() {
   // create transaction table
   db.run("DROP TABLE IF EXISTS Income_Expense");
   db.run("CREATE TABLE Income_Expense (categoryName TEXT, amount REAL, date TEXT, payment_mode TEXT, transactionType TEXT, description TEXT, FOREIGN KEY (categoryName) REFERENCES Category(name), FOREIGN KEY (transactionType) REFERENCES Transaction_Type(name))");
-
-  // insert records into the Transaction table
-  //db.run("INSERT INTO Transaction VALUES (?,?,?,?,?,?,?)", ['1', 'Groceries']);
-  //db.run("INSERT INTO Transaction VALUES (?,?)", ['2', 'Hydro']);
-  //db.run("INSERT INTO Transaction VALUES (?,?)", ['3', 'Internet']);
-  //db.run("INSERT INTO Transaction VALUES (?,?)", ['4', 'Rent']);
-  //db.run("INSERT INTO Transaction VALUES (?,?)", ['5', 'Transportation']);
 });

@@ -5,14 +5,13 @@
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <h2>Add Income/Expense Transaction</h2>
+      <h2>Add Transaction</h2>
       <div id ="inc-exp" class="transnav">
-        <a id="incbtn" href="/addincomeform" {{#incomenav}}class="curnav"{{/incomenav}}>Income</a>
-        <a id="expbtn" href="/addexpenseform" {{#expensenav}}class="curnav"{{/expensenav}}>Expense</a>
+        <a id="incbtn" href="#" {{#incomenav}}class="curnav active"{{/incomenav}}>Income</a>
+        <a id="expbtn" href="#" {{#expensenav}}class="curnav active"{{/expensenav}}>Expense</a>
       </div>
-      {{#addtransaction}}
       <form id="add_transaction-form" role="form" action="transaction/addincome">
-        <div class="col-lg-1"></div><!-- this div tag is on the left side of from content which helps to right align the form content-->
+        <div class="col-lg-1"><input id="transactionType" type="text" value="Income"></input></div><!-- this div tag is on the left side of from content which helps to right align the form content-->
         <div class="col-lg-11"><!-- this div contains all the contents of form : label and input-->
           <div id="amount_container" class="form-group row"><!-- this div contains label and input of amount-->
             <!--<div class="col-md-1 col-lg-1"></div>-->
@@ -20,7 +19,7 @@
             <div  class="col-md-6 col-lg-6">
               <input id="amount" name="amount" type="text" placeholder="Enter amount here..." class="form-control input-md" required>
             </div>
-            <div  id="error-message" class="col-md-1 col-lg-1"><!-- this div is besides the input of amount and it is build to display the error message for wrong input-->
+            <div id="error-message" class="col-md-1 col-lg-1"><!-- this div is besides the input of amount and it is build to display the error message for wrong input-->
             </div>
           </div>
 
@@ -28,6 +27,7 @@
             <label class="col-md-5 col-lg-5 control-label" for="category">Category</label>
             <div class="col-md-6 col-lg-6">
               <select class="form-control" id="category">
+                <option value=""><option>
               {{#categories}}
                 <option value="{{rowid}}">{{name}}</option>
               {{/categories}}
@@ -36,23 +36,24 @@
           </div>
 
           <div id="date_container" class="form-group row"><!-- this div contains label and input of date-->
-            <label  class="col-md-5 col-lg-5 control-label" for="date">Date</label>
-            <div  class="col-md-6 col-lg-6">
-              <input class="form-control" id="input-date" type="date">
+            <label class="col-md-5 col-lg-5 control-label" for="input_date">Date</label>
+            <div class="col-md-6 col-lg-6">
+              <input class="form-control" id="input_date" type="date">
             </div>
           </div>
 
           <div id="description_container" class="form-group row"><!-- this div contains label and input of description-->
-            <label  class="col-md-5 col-lg-5 control-label" for="description">Description</label>
-            <div  class="col-md-6 col-lg-6">
+            <label class="col-md-5 col-lg-5 control-label" for="description">Description</label>
+            <div class="col-md-6 col-lg-6">
               <textarea class="form-control" rows="5" id="description" placeholder="Enter description of the transaction here..."></textarea>
             </div>
           </div>
 
           <div id="paymentmode_container" class="form-group row"><!-- this div contains label and input of payment mode-->
-            <label  class="col-md-5 col-lg-5 control-label" for="payment-mode">Payment Mode</label>
-            <div  class="col-md-6 col-lg-6">
-              <select class="form-control" id="payment-mode">
+            <label class="col-md-5 col-lg-5 control-label" for="payment_mode">Payment Mode</label>
+            <div class="col-md-6 col-lg-6">
+              <select class="form-control" id="payment_mode">
+                <option value=""><option>
                 <option>Cash</option>
                 <option>Credit</option>
                 <option>Debit</option>
@@ -63,13 +64,200 @@
 
           <div class="col-md-5 col-lg-5 col-xs-5 col-sm-5"><!-- this div is below all the labels-->
           </div>
-            <div id="save-reset_btn" class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><!-- this div is below all the inputs-->
-              <button id="save" type="button" class="btn btn-info">Save</button>
-              <button id="reset" type="reset" class="btn btn-default">Reset</button>
+            <div id="save-reset_btn" class="class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><!-- this div is below all the inputs-->
+              <button id="save" type="button" class="btn btn-primary">Save</button>
+              <button id="reset" type="reset" class="btn btn-secondary">Reset</button>
             </div>
           </div>
+
+          <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </symbol>
+            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </symbol>
+            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </symbol>
+          </svg>
+          <div id="output" class="alert d-flex align-items-center"></div>
       </form>
-      {{/addtransaction}}
     </div>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+
+  $(document).ready(function() {
+
+    function reset(event)
+    {
+      $("#amount").val("");
+      $("#description").val(""); 
+      $("#category").val(""); 
+      $("#payment_mode").val(""); 
+      $("#input_date").val(""); 
+      $("#output").html("");
+      $("#amount").removeClass("is-valid");
+      $("#amount").removeClass("is-invalid");
+      $("#description").removeClass("is-valid");
+      $("#description").removeClass("is-invalid");
+      $("#category").removeClass("is-valid");
+      $("#category").removeClass("is-invalid");
+      $("#payment_mode").removeClass("is-valid");
+      $("#payment_mode").removeClass("is-invalid");
+      $("#input_date").removeClass("is-valid");
+      $("#input_date").removeClass("is-invalid");
+      $("#output").removeClass("alert-success");
+      $("#output").removeClass("alert-danger");
+      event.preventDefault();
+    }
+    $("#reset").click(reset);
+
+    $("#incbtn").on("click", function (event){
+      console.log("Button Income");
+      $("#transactionType").val("Income");
+    });
+
+    $("#expbtn").on("click", function (event){
+      console.log("Button Expense");
+      $("#transactionType").val("Expense");
+    });
+
+    function ValidateForm()
+    {
+      let amount = $("#amount").val();
+      let description = $("#description").val();
+      let category = $("#category").val();
+      let payment_mode = $("#payment_mode").val();
+      let date = $("#input_date").val();
+      let transactionType = $("#transactionType").val();
+      let errors = [];
+      let was_errors = false;
+
+      if (isNaN(amount) || parseFloat(amount) < 0 || amount == '')
+      {
+        errors.push("Price must be a positive number");
+        was_errors = true;
+        $("#amount").addClass("is-invalid");
+        $("#amount").removeClass("is-valid");
+      }
+      else
+      {
+        amount = parseFloat(amount);
+        $("#amount").addClass("is-valid");
+        $("#amount").removeClass("is-invalid");
+      }
+
+      if (category == '')
+      {
+        errors.push("Category cannot be blank. Please choose a category");
+        was_errors = true;
+        $("#category").addClass("is-invalid");
+        $("#category").removeClass("is-valid");
+      }
+      else 
+      {
+        $("#category").addClass("is-valid");
+        $("#category").removeClass("is-invalid");
+      }
+
+      if (date.length != 10 || date == '')
+      {
+        errors.push("Date must be populated in 'mm/dd/yyyy' format");
+        was_errors = true;
+        $("#pCode").addClass("is-invalid");
+        $("#pCode").removeClass("is-valid");
+      }
+      else 
+      {
+        $("#pCode").addClass("is-valid");
+        $("#pCode").removeClass("is-invalid");
+      }
+
+      if (description != '' && description.length > 255)
+      {
+        errors.push("Description must be less than 256 characters");
+        was_errors = true;
+        $("#description").addClass("is-invalid");
+        $("#description").removeClass("is-valid");
+      }
+      else 
+      {
+        $("#description").addClass("is-valid");
+        $("#description").removeClass("is-invalid");
+      }
+
+      if (payment_mode == '')
+      {
+        errors.push("Payment mode cannot be blank. Please choose a payment mode");
+        was_errors = true;
+        $("#payment_mode").addClass("is-invalid");
+        $("#payment_mode").removeClass("is-valid");
+      }
+      else 
+      {
+        $("#payment_mode").addClass("is-valid");
+        $("#payment_mode").removeClass("is-invalid");
+      }
+      
+      if(transactionType == ''){
+        errors.push("Please select type of transaction: Income or Expense");
+        was_errors = true;
+      }
+
+      if (was_errors)
+      {
+        $("#output").removeClass("alert-success")
+        $("#output").addClass("alert-danger");
+        let error_list = '<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg> <ul>';
+        for (let i = 0; i < errors.length; i++)
+        {
+          error_list += "<li>" + errors[i] + "</li>";
+        }
+        error_list += "</ul>";
+        $("#output").html(error_list);
+      }
+      else 
+      {
+        $("#output").removeClass("alert-danger")
+        $("#output").addClass("alert-success");
+        let success_list = '';
+        success_list += "<p><strong>Added successfully!</strong></p>";
+        $("#output").html(success_list);
+
+        addTransaction(category, amount, date, payment_mode, transactionType, description);
+
+      }        
+      event.preventDefault();
+    }
+
+    $("#save").click(ValidateForm);
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+// Using axios inside an async function as we want to use await
+  async function addTransaction(category, amount, date, payment_mode, transactionType, description)
+  {
+    console.log(category);
+    console.log(amount);
+    console.log(date);
+    console.log(payment_mode);
+    console.log(transactionType);
+    try {
+        const response1 = await axios.post('http://localhost:3000/addtransaction', 
+                                {
+                                category : category, amount : amount, date :  date, payment_mode : payment_mode, transactionType : transactionType, 
+                                description : description 
+                                });
+        // Output the response from the API
+        console.log(response1.data);
+
+    } catch (error) {
+        console.error(error);
+        console.log("POST request: See the error object above ^^^");
+    }	
+ } 
+</script>
