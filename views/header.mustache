@@ -64,12 +64,13 @@
 
     /* Style the transaction nav links */
     .transnav a {
-      float: center;
-      display: flex;
+      float: left;
+      display: inline;
       color: #f2f2f2;
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
+      width: 50%;
     }
 
     /* Change color on hover */
@@ -157,8 +158,18 @@
         float: none;
         width: 100%;
       }
+
+      .title{
+        display: inline;
+      }
+
+      #title {
+	    display: none;
+    }
     }
     </style>
   </head>
 <body>
-  <h1>Daily Expense Manager</h1>
+  <div class="title">
+        <h1><p id="shortTitle">DEM</p><p id="title">Daily Expense Manager</p></h1>
+  </div>

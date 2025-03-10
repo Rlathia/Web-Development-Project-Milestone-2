@@ -17,11 +17,11 @@ db.serialize(function() {
   //db.run("INSERT INTO Category VALUES (?)", [3, 'Internet']);
   //db.run("INSERT INTO Category VALUES (?)", [4, 'Rent']);
   //db.run("INSERT INTO Category VALUES (?)", [5, 'Transportation']);
-  db.run("INSERT INTO Category VALUES (?)", ['Groceries']);
-  db.run("INSERT INTO Category VALUES (?)", ['Hydro']);
-  db.run("INSERT INTO Category VALUES (?)", ['Internet']);
-  db.run("INSERT INTO Category VALUES (?)", ['Rent']);
-  db.run("INSERT INTO Category VALUES (?)", ['Transportation']);
+  db.run("INSERT INTO Category (name) VALUES (?)", ['Groceries']);
+  db.run("INSERT INTO Category (name) VALUES (?)", ['Hydro']);
+  db.run("INSERT INTO Category (name) VALUES (?)", ['Internet']);
+  db.run("INSERT INTO Category (name) VALUES (?)", ['Rent']);
+  db.run("INSERT INTO Category (name) VALUES (?)", ['Transportation']);
 
   // create Category table
   db.run("DROP TABLE IF EXISTS Transaction_Type");
@@ -31,8 +31,8 @@ db.serialize(function() {
   // insert records into the Category table
   //db.run("INSERT INTO Transaction_Type VALUES (?,?)", [1, 'Income']);
   //db.run("INSERT INTO Transaction_Type VALUES (?,?)", [2, 'Expense']);
-  db.run("INSERT INTO Transaction_Type VALUES (?)", ['Income']);
-  db.run("INSERT INTO Transaction_Type VALUES (?)", ['Expense']);
+  db.run("INSERT INTO Transaction_Type (name) VALUES (?)", ['Income']);
+  db.run("INSERT INTO Transaction_Type (name) VALUES (?)", ['Expense']);
 
   // create transaction table
   db.run("DROP TABLE IF EXISTS Income_Expense");

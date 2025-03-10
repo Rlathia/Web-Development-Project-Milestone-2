@@ -34,28 +34,14 @@ app.get("/", function(req, res)
 });
 
 // render the transaction main page
-app.get("/transaction", async function(req, res)
+app.get('/transaction', async function(req, res)
 {
   const categorylist = await Model.getAllCategories();
-  res.render("transaction", {transactionnav: true, incomenav: true, addtransaction: 1, categories: true, categories: categorylist});
-});
-
-// render the addincomeform page
-app.get("/addincomeform", async function(req, res)
-{
-  const categorylist = await Model.getAllCategories();
-  res.render("transaction", {transactionnav: true, incomenav: true, addtransaction: 1, categories: true, categories: categorylist});
-});
-
-// render the addexpenseform page
-app.get("/addexpenseform", async function(req, res)
-{
-  const categorylist = await Model.getAllCategories();
-  res.render("transaction", {transactionnav: true, expensenav: true, addtransaction: 2, categories: true, categories: categorylist});
+  res.render("transaction", {transactionnav: true, incomenav: true, categories: true, categories: categorylist});
 });
 
 // render the history page
-app.get("/history", async function(req, res)
+app.get('/history', async function(req, res)
 {
   const categorylist = await Model.getAllCategories();
   // retrieve all the transactions 
@@ -64,7 +50,7 @@ app.get("/history", async function(req, res)
 });
 
 // render the categories page
-app.get("/categories", async function(req, res)
+app.get('/categories', async function(req, res)
 {
   // retrieve all the categories 
   const categoryArray = await Model.getAllCategories();
@@ -72,6 +58,18 @@ app.get("/categories", async function(req, res)
 });
 
 // ************************* CONTROLLER ACTIONS ****************************
+
+// addtransaction action handles add form submit, inserts new transaction into Income_Expense table
+app.get('/transaction/addtransaction', async function(req,res)
+{
+    //insert transaction in the database
+    const transactionmsg = await Model.addTransaction(req.query);
+    console.log(req.query);
+    console.log(transactionmsg);
+
+    const categorylist = await Model.getAllCategories();
+    res.render("home", {homenav: true});
+});
 
 // delete a category action (given an id parameter)
 app.get('/categories/delete/:id', async function(req,res) 
@@ -136,23 +134,6 @@ app.get('/categories/updatecategory/:id', async function(req,res)
 
   // render the page
   res.render('categories', { categorynav: true, categories: categoryArray});
-});
-
-// POST
-app.post("/addtransaction", async function(req,res)
-{
-    console.log("POST ITEM REQUEST RECEIVED");
-    console.log(req.body);
-
-    //insert transaction in the database
-    await Model.addTransaction(req.query);
-
-    //const { category, amount, date, payment_mode, transactionType, description } = req.body;
-    //db.run("INSERT INTO Income_Expense (categoryName, amount, date, payment_mode, transactionType, description) VALUES (?, ?, ?, ?, ?, ?)", [category, amount, date, payment_mode, transactionType, description ]);
-    res.json({response: req.body});
-
-    const categorylist = await Model.getAllCategories();
-    res.render("transaction", {transactionnav: true, incomenav: true, addtransaction: 1, categories: true, categories: categorylist});
 });
 
 // catch-all router case intended for static files

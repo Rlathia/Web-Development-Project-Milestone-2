@@ -10,23 +10,20 @@
         <a id="incbtn" href="#" {{#incomenav}}class="curnav active"{{/incomenav}}>Income</a>
         <a id="expbtn" href="#" {{#expensenav}}class="curnav active"{{/expensenav}}>Expense</a>
       </div>
-      <form id="add_transaction-form" role="form" action="transaction/addincome">
-        <div class="col-lg-1"><input id="transactionType" type="text" value="Income"></input></div><!-- this div tag is on the left side of from content which helps to right align the form content-->
+      <form id="addTransactionForm" role="form" action="transaction/addtransaction">
+        <div class="col-lg-1"><input id="transactionType" name="transactionType" type="text" value="Income"></input></div>
         <div class="col-lg-11"><!-- this div contains all the contents of form : label and input-->
           <div id="amount_container" class="form-group row"><!-- this div contains label and input of amount-->
-            <!--<div class="col-md-1 col-lg-1"></div>-->
             <label  class="col-md-5 col-lg-5 control-label" for="amount">Price</label>
             <div  class="col-md-6 col-lg-6">
-              <input id="amount" name="amount" type="text" placeholder="Enter amount here..." class="form-control input-md" required>
-            </div>
-            <div id="error-message" class="col-md-1 col-lg-1"><!-- this div is besides the input of amount and it is build to display the error message for wrong input-->
+              <input id="amount" name="amount" type="text" placeholder="Enter amount here..." class="form-control input-md"></input>
             </div>
           </div>
 
           <div id="category_container" class="form-group row"><!-- this div contains label and input of category-->
             <label class="col-md-5 col-lg-5 control-label" for="category">Category</label>
             <div class="col-md-6 col-lg-6">
-              <select class="form-control" id="category">
+              <select class="form-control" id="category" name="categoryName">
                 <option value=""><option>
               {{#categories}}
                 <option value="{{rowid}}">{{name}}</option>
@@ -38,21 +35,21 @@
           <div id="date_container" class="form-group row"><!-- this div contains label and input of date-->
             <label class="col-md-5 col-lg-5 control-label" for="input_date">Date</label>
             <div class="col-md-6 col-lg-6">
-              <input class="form-control" id="input_date" type="date">
+              <input class="form-control" id="input_date" type="date" name="date"></input>
             </div>
           </div>
 
           <div id="description_container" class="form-group row"><!-- this div contains label and input of description-->
             <label class="col-md-5 col-lg-5 control-label" for="description">Description</label>
             <div class="col-md-6 col-lg-6">
-              <textarea class="form-control" rows="5" id="description" placeholder="Enter description of the transaction here..."></textarea>
+              <textarea class="form-control" rows="5" id="description" name ="description" placeholder="Enter description of the transaction here..."></textarea>
             </div>
           </div>
 
           <div id="paymentmode_container" class="form-group row"><!-- this div contains label and input of payment mode-->
             <label class="col-md-5 col-lg-5 control-label" for="payment_mode">Payment Mode</label>
             <div class="col-md-6 col-lg-6">
-              <select class="form-control" id="payment_mode">
+              <select class="form-control" id="payment_mode" name="payment_mode">
                 <option value=""><option>
                 <option>Cash</option>
                 <option>Credit</option>
@@ -62,12 +59,14 @@
             </div>
           </div>
 
-          <div class="col-md-5 col-lg-5 col-xs-5 col-sm-5"><!-- this div is below all the labels-->
-          </div>
-            <div id="save-reset_btn" class="class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><!-- this div is below all the inputs-->
-              <button id="save" type="button" class="btn btn-primary">Save</button>
+          <div>
+            <div class="col-md-5 col-lg-5 col-xs-5 col-sm-5"><!-- this div is below all the labels-->
+            </div>
+            <div id="save_reset_btn" class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><!-- this div is below all the inputs-->
+              <button id="save" type="submit" class="btn btn-primary">Save</button>
               <button id="reset" type="reset" class="btn btn-secondary">Reset</button>
             </div>
+          </div>
           </div>
 
           <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -118,11 +117,16 @@
     $("#incbtn").on("click", function (event){
       console.log("Button Income");
       $("#transactionType").val("Income");
+      $("#incbtn").addClass("curnav active");
+      $("#expbtn").removeClass("curnav active");
+
     });
 
     $("#expbtn").on("click", function (event){
       console.log("Button Expense");
       $("#transactionType").val("Expense");
+      $("#expbtn").addClass("curnav active");
+      $("#incbtn").removeClass("curnav active");
     });
 
     function ValidateForm()
@@ -167,13 +171,13 @@
       {
         errors.push("Date must be populated in 'mm/dd/yyyy' format");
         was_errors = true;
-        $("#pCode").addClass("is-invalid");
-        $("#pCode").removeClass("is-valid");
+        $("#input_date").addClass("is-invalid");
+        $("#input_date").removeClass("is-valid");
       }
       else 
       {
-        $("#pCode").addClass("is-valid");
-        $("#pCode").removeClass("is-invalid");
+        $("#input_date").addClass("is-valid");
+        $("#input_date").removeClass("is-invalid");
       }
 
       if (description != '' && description.length > 255)
@@ -218,6 +222,8 @@
         }
         error_list += "</ul>";
         $("#output").html(error_list);
+        event.preventDefault();
+        return false;
       }
       else 
       {
@@ -227,37 +233,17 @@
         success_list += "<p><strong>Added successfully!</strong></p>";
         $("#output").html(success_list);
 
-        addTransaction(category, amount, date, payment_mode, transactionType, description);
-
+        //addTransaction(category, amount, date, payment_mode, transactionType, description);
+        return true;
       }        
-      event.preventDefault();
     }
 
-    $("#save").click(ValidateForm);
+    $("#save").click(function(event) {
+      if(ValidateForm(event)){
+        if (!event.isDefaultPrevented()) {
+          $("#addTransactionForm").submit(); // Manually submit form if no errors
+        }
+      }
+    });
   });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-// Using axios inside an async function as we want to use await
-  async function addTransaction(category, amount, date, payment_mode, transactionType, description)
-  {
-    console.log(category);
-    console.log(amount);
-    console.log(date);
-    console.log(payment_mode);
-    console.log(transactionType);
-    try {
-        const response1 = await axios.post('http://localhost:3000/addtransaction', 
-                                {
-                                category : category, amount : amount, date :  date, payment_mode : payment_mode, transactionType : transactionType, 
-                                description : description 
-                                });
-        // Output the response from the API
-        console.log(response1.data);
-
-    } catch (error) {
-        console.error(error);
-        console.log("POST request: See the error object above ^^^");
-    }	
- } 
 </script>

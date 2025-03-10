@@ -30,7 +30,7 @@ async function deleteCategory(id)
 // insert a Category into the table
 async function addCategory(category)
 {
-  await db.run("INSERT INTO Category VALUES (?)",[category.name]);
+  await db.run("INSERT INTO Category (name) VALUES (?)",[category.name]);
 }
 
 // update a Category with a given id
@@ -42,14 +42,15 @@ async function updateCategory(category,id)
 // select all the transactions
 async function getAllTransaction()
 {
-  const results = await db.all("SELECT rowid, * FROM Income_Expense");
-  return results;
+  const alltransactions = await db.all("SELECT ie.rowid, * FROM Income_Expense ie INNER JOIN Category c ON ie.CategoryName = c.rowid");
+  console.log(alltransactions);
+  return alltransactions;
 }
 
-// select number of transactions with a given category id
-async function getTransaction(categoryName)
+// select number of transactions with a given date
+async function getTransaction(date)
 {
-  const result = await db.all("SELECT Count(*) FROM Income_Expense WHERE categoryName=?", categoryName);
+  const result = await db.all("SELECT Count(*) FROM Income_Expense WHERE date=?", date);
   return result;
 }
 
@@ -62,7 +63,8 @@ async function deleteTransaction(id)
 // insert a Transaction into the table
 async function addTransaction(trans)
 {
-  await db.run("INSERT INTO Income_Expense VALUES (?,?,?,?,?,?)",[trans.categoryName, trans.amount, trans.date, trans.payment_mode, trans.transaction_type, trans.description]);
+  await db.run("INSERT INTO Income_Expense VALUES (?,?,?,?,?,?)",[trans.categoryName, trans.amount, trans.date, trans.payment_mode, trans.transactionType, trans.description]);
+  return trans;
 }
 
 // update a Transaction with a given id

@@ -81,13 +81,15 @@ console.log("This script runs when the template is rendered.");
       {
         $("#output").removeClass("alert-success")
         $("#output").addClass("alert-danger");
-        let error_list = "<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg> <ul>";
+        let error_list = '<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg> <ul>';
         for (let i = 0; i < category_error.length; i++)
         {
           error_list += "<li>" + category_error[i] + "</li>";
         }
         error_list += "</ul>";
         $("#output").html(error_list);
+        event.preventDefault();
+        return false;
       }
       else 
       {
@@ -96,10 +98,25 @@ console.log("This script runs when the template is rendered.");
         let success_list = '';
         success_list += "<p><strong>Added successfully!</strong></p>";
         $("#output").html(success_list);
+        return true;
       } 
-      event.preventDefault();
+
     }
-    $("#add_category").click(ValidateCategoryForm);
-    $("#edit_category").click(ValidateCategoryForm);
+    $("#add_category").click(function(event){
+      if(ValidateCategoryForm(event)){
+        if (!event.isDefaultPrevented()) {
+          $("#AddCategoryForm").submit(); // Manually submit form if no errors
+        }
+      }
+    });
+
+    $("#edit_category").click(function(event) {
+      if(ValidateCategoryForm(event)){
+        if (!event.isDefaultPrevented()) {
+          $("#EditCategoryForm").submit(); // Manually submit form if no errors
+        }
+      }
+    });
+
   });
 </script>
