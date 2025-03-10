@@ -59,7 +59,7 @@
             </div>
           </div>
 
-          <div>
+          <div class="form-group row">
             <div class="col-md-5 col-lg-5 col-xs-5 col-sm-5"><!-- this div is below all the labels-->
             </div>
             <div id="save_reset_btn" class="col-md-6 col-lg-6 col-xs-6 col-sm-6"><!-- this div is below all the inputs-->
@@ -67,7 +67,7 @@
               <button id="reset" type="reset" class="btn btn-secondary">Reset</button>
             </div>
           </div>
-          </div>
+        </div>
 
           <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
             <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -119,7 +119,6 @@
       $("#transactionType").val("Income");
       $("#incbtn").addClass("curnav active");
       $("#expbtn").removeClass("curnav active");
-
     });
 
     $("#expbtn").on("click", function (event){

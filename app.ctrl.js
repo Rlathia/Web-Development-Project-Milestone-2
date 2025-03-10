@@ -33,7 +33,7 @@ app.get("/", function(req, res)
   res.render("home", {homenav: true});
 });
 
-// render the transaction main page
+// render the transaction page
 app.get('/transaction', async function(req, res)
 {
   const categorylist = await Model.getAllCategories();
@@ -58,6 +58,48 @@ app.get('/categories', async function(req, res)
 });
 
 // ************************* CONTROLLER ACTIONS ****************************
+
+// render the history page with selected date filter
+app.get('/history/date/:date', async function(req, res)
+{
+  const transactionArray = await Model.getTransaction(req.params.date);
+  const categorylist = await Model.getAllCategories();
+  res.render('history',
+    {historynav: true, transaction: true
+    ,date: req.params.date
+    ,transaction : transactionArray
+    ,categories: true
+    ,categories: categorylist
+    });
+});
+
+// render the history page with selected month filter
+app.get('/history/month/:month', async function(req, res)
+{
+  const transactionArray = await Model.getTransactionByMonth(req.params.month);
+  const categorylist = await Model.getAllCategories();
+  res.render('history',
+    {historynav: true, transaction: true
+    ,month: req.params.month
+    ,transaction : transactionArray
+    ,categories: true
+    ,categories: categorylist
+    });
+});
+
+// render the history page with selected category filter
+app.get('/history/category/:category', async function(req, res)
+{
+  const transactionArray = await Model.getTransactionByCategory(req.params.category);
+  const categorylist = await Model.getAllCategories();
+  res.render('history',
+    {historynav: true, transaction: true
+    ,category: req.params.category
+    ,transaction : transactionArray
+    ,categories: true
+    ,categories: categorylist
+    });
+});
 
 // addtransaction action handles add form submit, inserts new transaction into Income_Expense table
 app.get('/transaction/addtransaction', async function(req,res)

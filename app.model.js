@@ -47,10 +47,24 @@ async function getAllTransaction()
   return alltransactions;
 }
 
-// select number of transactions with a given date
+// select transactions with a given date
 async function getTransaction(date)
 {
-  const result = await db.all("SELECT Count(*) FROM Income_Expense WHERE date=?", date);
+  const result = await db.all("SELECT ie.rowid, * FROM Income_Expense ie INNER JOIN Category c ON ie.CategoryName = c.rowid WHERE date=?", date);
+  return result;
+}
+
+// select transactions with a given month
+async function getTransactionByMonth(month)
+{
+  const result = await db.all("SELECT ie.rowid, * FROM Income_Expense ie INNER JOIN Category c ON ie.CategoryName = c.rowid WHERE strftime('%m',date)= ?", month);
+  return result;
+}
+
+// select transactions with a given category
+async function getTransactionByCategory(category)
+{
+  const result = await db.all("SELECT ie.rowid, * FROM Income_Expense ie INNER JOIN Category c ON ie.CategoryName = c.rowid WHERE c.rowid= ?", category);
   return result;
 }
 
@@ -74,4 +88,4 @@ async function updateTransaction(trans,id)
 }
 
 // export the functions we have defined
-module.exports = {makeConnection, getAllCategories, deleteCategory, addCategory, updateCategory, getAllTransaction, getTransaction, deleteTransaction, addTransaction, updateTransaction};
+module.exports = {makeConnection, getAllCategories, deleteCategory, addCategory, updateCategory, getAllTransaction, getTransaction, getTransactionByMonth, getTransactionByCategory, addTransaction};
