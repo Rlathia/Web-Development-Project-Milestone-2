@@ -80,6 +80,11 @@
       color: black;
     }
 
+    button{
+      border-radius: 5px;
+      padding: 5px;
+    }
+
     #inc-exp{
       margin: 25px 0px;
       padding: 0px 0px;
@@ -113,7 +118,7 @@
     }
 
     /* Fake image */
-    .fakeimg {
+    .moneyimg {
       background-color: #aaa;
       width: 100%;
       padding: 20px;
@@ -133,24 +138,26 @@
       clear: both;
     }
 
-    /* Footer */
-    .footer {
-      padding: 20px;
-      text-align: center;
-      background: #ddd;
-      margin-top: 20px;
-    }
 
     /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
-    @media screen and (max-width: 800px) {
+    @media only screen and (max-width: 768px) {
       .leftcolumn, .rightcolumn {
         width: 100%;
         padding: 0;
       }
+      .fulltitle {
+	      display: none;
+      }
+      button{
+        font-size: 30px;
+      }
+      .nameTitle{
+        font-size: 50px;
+      }
     }
 
     /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-    @media screen and (max-width: 400px) {
+    @media only screen and (max-width: 400px) {
       .topnav a {
         float: none;
         width: 100%;
@@ -159,18 +166,16 @@
         float: none;
         width: 100%;
       }
-
-      .title{
-        display: inline;
+      .fulltitle {
+	      display: none;
       }
-
-      #title {
-	    display: none;
-    }
+      .nameTitle{
+        font-size: 50px;
+      }
     }
     </style>
   </head>
 <body>
   <div class="title">
-        <h1><p id="shortTitle">DEM</p><p id="title">Daily Expense Manager</p></h1>
+        <h1><p class="nameTitle">DEM   <span class="fulltitle">Daily Expense Manager</span></p></h1>
   </div>
