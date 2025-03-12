@@ -11,7 +11,7 @@
         <a id="expbtn" href="#" {{#expensenav}}class="curnav active"{{/expensenav}}>Expense</a>
       </div>
       <form id="addTransactionForm" role="form" action="transaction/addtransaction">
-        <div class="col-lg-1"><input id="transactionType" name="transactionType" type="text" value="Income"></input></div>
+        <div class="col-lg-1"><input id="transactionType" name="transactionType" type="text" value="1"></input></div>
         <div class="col-lg-11"><!-- this div contains all the contents of form : label and input-->
           <div id="amount_container" class="form-group row"><!-- this div contains label and input of amount-->
             <label  class="col-md-5 col-lg-5 control-label" for="amount">Price</label>
@@ -116,14 +116,14 @@
 
     $("#incbtn").on("click", function (event){
       console.log("Button Income");
-      $("#transactionType").val("Income");
+      $("#transactionType").val("1");
       $("#incbtn").addClass("curnav active");
       $("#expbtn").removeClass("curnav active");
     });
 
     $("#expbtn").on("click", function (event){
       console.log("Button Expense");
-      $("#transactionType").val("Expense");
+      $("#transactionType").val("2");
       $("#expbtn").addClass("curnav active");
       $("#incbtn").removeClass("curnav active");
     });
@@ -231,8 +231,6 @@
         let success_list = '';
         success_list += "<p><strong>Added successfully!</strong></p>";
         $("#output").html(success_list);
-
-        //addTransaction(category, amount, date, payment_mode, transactionType, description);
         return true;
       }        
     }

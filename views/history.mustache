@@ -67,7 +67,7 @@
             <!-- Data will be populated here by AJAX -->
           {{#transaction}}
           <tr>
-            <td>{{transactionType}}</td>
+            <td>{{ttName}}</td>
             <td>{{name}}</td>
             <td>{{date}}</td>
             <td>$ {{amount}}</td>
@@ -81,8 +81,8 @@
     </div>
   </div>
 </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
     $(document).ready(function() {
 
       $("#All_btn").on("click", function (event){
@@ -125,8 +125,6 @@
         $("#input_date").removeClass("is-invalid");
         return true;
       }
-
-
     }
 
   </script>
