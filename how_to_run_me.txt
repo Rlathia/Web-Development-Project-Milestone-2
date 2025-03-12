@@ -1,0 +1,10 @@
+First run...
+
+npm install
+
+Then run...
+
+node initdb.js
+node app.ctrl.js
+
+Then visit localhost:3000 in the web browser!
