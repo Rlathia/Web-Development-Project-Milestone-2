@@ -5,8 +5,30 @@
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <h2>Home</h2>
-      <p>This is the homepage!</p>
+      <div id="part2" class="col-lg-7 col-sm-7 col-xs-7"><!--this div is the "second" vertical part of the page-->
+        <h3 class="col-lg-offset-4 col-md-offset-4">Dashboard</h3>
+        <div>
+          <table id="dashboardTable" class="table">
+            <tr>
+                <th>Income :</th>
+                <td>$ {{total_income}}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid">
+                <th>Expense :</th>
+                <td>$ {{total_expense}}</td>
+            </tr>
+            <tr>
+                <th>Savings : </th>
+                <td>$ {{total_savings}}</td>
+            </tr>
+          </table>
+        <div>  
+        <div class="card">
+          <h3>Welcome!</h3>
+          <p>Know what you earn. Know what you spend. And make sure what you spend is less than what you earn.</p>
+          <img class="moneyimg" src="money.png"/>
+        </div>
+      </div>
     </div>
   </div>
 

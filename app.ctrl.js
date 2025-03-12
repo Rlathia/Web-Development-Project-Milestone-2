@@ -1,6 +1,7 @@
 // include express
 const express = require('express');
 const app = express();
+
 // To parse JSON request body
 app.use(express.json());
 
@@ -28,9 +29,13 @@ app.set('views', __dirname + '/views');
 // the navigation template that we want the home navigation item to be
 // highlighted when the home page is selected.  We do the same for the other
 // pages as well.
-app.get("/", function(req, res)
+app.get("/", async function(req, res)
 {
-  res.render("home", {homenav: true});
+  const total_income = await Model.getSummary(1);
+  const total_expense = await Model.getSummary(2);
+  const total_savings = total_income[0].value - total_expense[0].value;
+  console.log(total_savings + " = " + total_income[0].value + " - " + total_expense[0].value);
+  res.render("home", {homenav: true, total_income: total_income[0].value, total_expense: total_expense[0].value, total_savings: total_savings});
 });
 
 // render the transaction page
@@ -106,11 +111,13 @@ app.get('/transaction/addtransaction', async function(req,res)
 {
     //insert transaction in the database
     const transactionmsg = await Model.addTransaction(req.query);
-    console.log(req.query);
-    console.log(transactionmsg);
 
     const categorylist = await Model.getAllCategories();
-    res.render("home", {homenav: true});
+    // retrieve all the transactions 
+    const transactionArray = await Model.getAllTransaction();
+
+    //render history page
+    res.render("history", {historynav: true, transaction: true, transaction: transactionArray, categories: true, categories: categorylist});
 });
 
 // delete a category action (given an id parameter)

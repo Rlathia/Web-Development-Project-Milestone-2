@@ -26,13 +26,13 @@ db.serialize(function() {
   // create Category table
   db.run("DROP TABLE IF EXISTS Transaction_Type");
   //db.run("CREATE TABLE Transaction_Type (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL)");
-  db.run("CREATE TABLE Transaction_Type (name TEXT PRIMARY KEY)");
+  db.run("CREATE TABLE Transaction_Type (id INTEGER PRIMARY KEY, ttName TEXT)");
 
   // insert records into the Category table
   //db.run("INSERT INTO Transaction_Type VALUES (?,?)", [1, 'Income']);
   //db.run("INSERT INTO Transaction_Type VALUES (?,?)", [2, 'Expense']);
-  db.run("INSERT INTO Transaction_Type (name) VALUES (?)", ['Income']);
-  db.run("INSERT INTO Transaction_Type (name) VALUES (?)", ['Expense']);
+  db.run("INSERT INTO Transaction_Type (id, ttName) VALUES (?,?)", [1,'Income']);
+  db.run("INSERT INTO Transaction_Type (id, ttName) VALUES (?,?)", [2,'Expense']);
 
   // create transaction table
   db.run("DROP TABLE IF EXISTS Income_Expense");
